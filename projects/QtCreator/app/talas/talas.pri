@@ -55,14 +55,35 @@ XOS_CONSOLE_MAIN_MAIN \
 # talas_exe HEADERS
 #
 talas_exe_HEADERS += \
-$${TALAS_SRC}/xos/app/console/talas/main_opt.hpp \
-$${TALAS_SRC}/xos/app/console/talas/main.hpp \
+$${TALAS_SRC}/talas/crypto/hash/implemented/implemented.hpp \
+$${TALAS_SRC}/talas/crypto/random/implemented/implemented.hpp \
+\
+$${TALAS_SRC}/talas/network/ethernet/actual/address.hpp \
+$${TALAS_SRC}/talas/network/ethernet/address.hpp \
+$${TALAS_SRC}/talas/network/ethernet/bsd/address.hpp \
+$${TALAS_SRC}/talas/network/ethernet/systemv/address.hpp \
+$${TALAS_SRC}/talas/network/ethernet/os/os.hpp \
+$${TALAS_SRC}/talas/network/ethernet/os/address.hpp \
+\
+$${TALAS_SRC}/talas/network/universal/unique/actual/identifier.hpp \
+$${TALAS_SRC}/talas/network/universal/unique/identifier.hpp \
+$${TALAS_SRC}/talas/network/universal/unique/posix/identifier.hpp \
+$${TALAS_SRC}/talas/network/universal/unique/os/identifier.hpp \
+\
+$${TALAS_SRC}/talas/console/main.hpp \
+$${TALAS_SRC}/talas/console/main_opt.hpp \
+$${TALAS_SRC}/talas/console/main_main.hpp \
+\
+$${TALAS_SRC}/talas/app/console/talas/main_opt.hpp \
+$${TALAS_SRC}/talas/app/console/talas/main.hpp \
 
 # talas_exe SOURCES
 #
 talas_exe_SOURCES += \
-$${TALAS_SRC}/xos/app/console/talas/main_opt.cpp \
-$${TALAS_SRC}/xos/app/console/talas/main.cpp \
+$${TALAS_SRC}/talas/console/main_main.cpp \
+\
+$${TALAS_SRC}/talas/app/console/talas/main_opt.cpp \
+$${TALAS_SRC}/talas/app/console/talas/main.cpp \
 
 ########################################################################
 # talas_exe FRAMEWORKS

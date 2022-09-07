@@ -16,11 +16,11 @@
 #   File: talas.pri
 #
 # Author: $author$
-#   Date: 9/4/2022
+#   Date: 9/7/2022
 #
 # build specific QtCreator project .pri file for framework talas
 ########################################################################
-# Depends: bn;mp;rostra;nadir;fila;crono;cifra;rete;stara
+# Depends: openssl;libressl;bn;mp;xosnadir;xosrostra
 
 contains(BUILD_OS,Uname) {
 UNAME = $$system(uname)
@@ -46,6 +46,50 @@ BUILD_OS = os
 } # contains(BUILD_OS,Uname)
 
 #BUILD_CPP_VERSION = 11
+
+########################################################################
+# openssl
+#
+# pkg-config --cflags --libs openssl
+#
+
+# build openssl INCLUDEPATH
+#
+build_openssl_INCLUDEPATH += \
+
+# build openssl DEFINES
+#
+build_openssl_DEFINES += \
+
+# build openssl FRAMEWORKS
+#
+build_openssl_FRAMEWORKS += \
+
+# build openssl LIBS
+#
+build_openssl_LIBS += \
+
+########################################################################
+# libressl
+#
+# pkg-config --cflags --libs libressl
+#
+
+# build libressl INCLUDEPATH
+#
+build_libressl_INCLUDEPATH += \
+
+# build libressl DEFINES
+#
+build_libressl_DEFINES += \
+
+# build libressl FRAMEWORKS
+#
+build_libressl_FRAMEWORKS += \
+
+# build libressl LIBS
+#
+build_libressl_LIBS += \
 
 ########################################################################
 # bn
@@ -92,158 +136,48 @@ build_mp_FRAMEWORKS += \
 build_mp_LIBS += \
 
 ########################################################################
-# rostra
+# xosnadir
 #
-# pkg-config --cflags --libs rostra
-#
-
-# build rostra INCLUDEPATH
-#
-build_rostra_INCLUDEPATH += \
-
-# build rostra DEFINES
-#
-build_rostra_DEFINES += \
-
-# build rostra FRAMEWORKS
-#
-build_rostra_FRAMEWORKS += \
-
-# build rostra LIBS
-#
-build_rostra_LIBS += \
-
-########################################################################
-# nadir
-#
-# pkg-config --cflags --libs nadir
+# pkg-config --cflags --libs xosnadir
 #
 
-# build nadir INCLUDEPATH
+# build xosnadir INCLUDEPATH
 #
-build_nadir_INCLUDEPATH += \
+build_xosnadir_INCLUDEPATH += \
 
-# build nadir DEFINES
+# build xosnadir DEFINES
 #
-build_nadir_DEFINES += \
+build_xosnadir_DEFINES += \
 
-# build nadir FRAMEWORKS
+# build xosnadir FRAMEWORKS
 #
-build_nadir_FRAMEWORKS += \
+build_xosnadir_FRAMEWORKS += \
 
-# build nadir LIBS
+# build xosnadir LIBS
 #
-build_nadir_LIBS += \
+build_xosnadir_LIBS += \
 
 ########################################################################
-# fila
+# xosrostra
 #
-# pkg-config --cflags --libs fila
-#
-
-# build fila INCLUDEPATH
-#
-build_fila_INCLUDEPATH += \
-
-# build fila DEFINES
-#
-build_fila_DEFINES += \
-
-# build fila FRAMEWORKS
-#
-build_fila_FRAMEWORKS += \
-
-# build fila LIBS
-#
-build_fila_LIBS += \
-
-########################################################################
-# crono
-#
-# pkg-config --cflags --libs crono
+# pkg-config --cflags --libs xosrostra
 #
 
-# build crono INCLUDEPATH
+# build xosrostra INCLUDEPATH
 #
-build_crono_INCLUDEPATH += \
+build_xosrostra_INCLUDEPATH += \
 
-# build crono DEFINES
+# build xosrostra DEFINES
 #
-build_crono_DEFINES += \
+build_xosrostra_DEFINES += \
 
-# build crono FRAMEWORKS
+# build xosrostra FRAMEWORKS
 #
-build_crono_FRAMEWORKS += \
+build_xosrostra_FRAMEWORKS += \
 
-# build crono LIBS
+# build xosrostra LIBS
 #
-build_crono_LIBS += \
-
-########################################################################
-# cifra
-#
-# pkg-config --cflags --libs cifra
-#
-
-# build cifra INCLUDEPATH
-#
-build_cifra_INCLUDEPATH += \
-
-# build cifra DEFINES
-#
-build_cifra_DEFINES += \
-
-# build cifra FRAMEWORKS
-#
-build_cifra_FRAMEWORKS += \
-
-# build cifra LIBS
-#
-build_cifra_LIBS += \
-
-########################################################################
-# rete
-#
-# pkg-config --cflags --libs rete
-#
-
-# build rete INCLUDEPATH
-#
-build_rete_INCLUDEPATH += \
-
-# build rete DEFINES
-#
-build_rete_DEFINES += \
-
-# build rete FRAMEWORKS
-#
-build_rete_FRAMEWORKS += \
-
-# build rete LIBS
-#
-build_rete_LIBS += \
-
-########################################################################
-# stara
-#
-# pkg-config --cflags --libs stara
-#
-
-# build stara INCLUDEPATH
-#
-build_stara_INCLUDEPATH += \
-
-# build stara DEFINES
-#
-build_stara_DEFINES += \
-
-# build stara FRAMEWORKS
-#
-build_stara_FRAMEWORKS += \
-
-# build stara LIBS
-#
-build_stara_LIBS += \
+build_xosrostra_LIBS += \
 
 ########################################################################
 # talas
@@ -251,56 +185,44 @@ build_stara_LIBS += \
 # build talas INCLUDEPATH
 #
 build_talas_INCLUDEPATH += \
-$${build_stara_INCLUDEPATH} \
-$${build_rete_INCLUDEPATH} \
-$${build_cifra_INCLUDEPATH} \
-$${build_crono_INCLUDEPATH} \
-$${build_fila_INCLUDEPATH} \
-$${build_nadir_INCLUDEPATH} \
-$${build_rostra_INCLUDEPATH} \
+$${build_xosrostra_INCLUDEPATH} \
+$${build_xosnadir_INCLUDEPATH} \
 $${build_mp_INCLUDEPATH} \
 $${build_bn_INCLUDEPATH} \
+$${build_libressl_INCLUDEPATH} \
+$${build_openssl_INCLUDEPATH} \
 
 
 # build talas DEFINES
 #
 build_talas_DEFINES += \
+$${build_openssl_DEFINES} \
+$${build_libressl_DEFINES} \
 $${build_bn_DEFINES} \
 $${build_mp_DEFINES} \
-$${build_rostra_DEFINES} \
-$${build_nadir_DEFINES} \
-$${build_fila_DEFINES} \
-$${build_crono_DEFINES} \
-$${build_cifra_DEFINES} \
-$${build_rete_DEFINES} \
-$${build_stara_DEFINES} \
+$${build_xosnadir_DEFINES} \
+$${build_xosrostra_DEFINES} \
 
 
 # build talas FRAMEWORKS
 #
 build_talas_FRAMEWORKS += \
-$${build_stara_FRAMEWORKS} \
-$${build_rete_FRAMEWORKS} \
-$${build_cifra_FRAMEWORKS} \
-$${build_crono_FRAMEWORKS} \
-$${build_fila_FRAMEWORKS} \
-$${build_nadir_FRAMEWORKS} \
-$${build_rostra_FRAMEWORKS} \
+$${build_xosrostra_FRAMEWORKS} \
+$${build_xosnadir_FRAMEWORKS} \
 $${build_mp_FRAMEWORKS} \
 $${build_bn_FRAMEWORKS} \
+$${build_libressl_FRAMEWORKS} \
+$${build_openssl_FRAMEWORKS} \
 
 
 # build talas LIBS
 #
 build_talas_LIBS += \
-$${build_stara_LIBS} \
-$${build_rete_LIBS} \
-$${build_cifra_LIBS} \
-$${build_crono_LIBS} \
-$${build_fila_LIBS} \
-$${build_nadir_LIBS} \
-$${build_rostra_LIBS} \
+$${build_xosrostra_LIBS} \
+$${build_xosnadir_LIBS} \
 $${build_mp_LIBS} \
 $${build_bn_LIBS} \
+$${build_libressl_LIBS} \
+$${build_openssl_LIBS} \
 
 ########################################################################
