@@ -13,26 +13,29 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: default_plain_text.hpp
+///   File: messages.cpp
 ///
 /// Author: $author$
-///   Date: 9/19/2022
+///   Date: 9/21/2022
 ///////////////////////////////////////////////////////////////////////
-#ifndef XOS_PROTOCOL_STTP_CLIENT_MESSAGE_DEFAULT_PLAIN_TEXT_HPP
-#define XOS_PROTOCOL_STTP_CLIENT_MESSAGE_DEFAULT_PLAIN_TEXT_HPP
+#include "xos/protocol/sttp/plaintext/messages.hpp"
 
-#include "xos/base/base.hpp"
+#if !defined(XOS_PROTOCOL_STTP_PLAINTEXT_MESSAGES_INSTANCE)
+///#define XOS_PROTOCOL_STTP_PLAINTEXT_MESSAGES_INSTANCE
+#endif /// !defined(XOS_PROTOCOL_STTP_PLAINTEXT_MESSAGES_INSTANCE)
 
 namespace xos {
 namespace protocol {
 namespace sttp {
-namespace client {
-namespace message {
+namespace plaintext {
 
-} /// namespace message
-} /// namespace client
+///  Class: messagest
+#if defined(XOS_PROTOCOL_STTP_PLAINTEXT_MESSAGES_INSTANCE)
+static messages the_messages;
+#endif /// defined(XOS_PROTOCOL_STTP_PLAINTEXT_MESSAGES_INSTANCE)
+
+
+} /// namespace plaintext
 } /// namespace sttp
 } /// namespace protocol
 } /// namespace xos
-
-#endif /// ndef XOS_PROTOCOL_STTP_CLIENT_MESSAGE_DEFAULT_PLAIN_TEXT_HPP

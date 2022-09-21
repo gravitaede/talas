@@ -32,7 +32,8 @@ namespace base {
 
 /// class maint
 template 
-<class TExtends = xos::app::console::protocol::sttp::base::main_opt, 
+<class TOutput = xos::protocol::sttp::base::output,
+ class TExtends = xos::app::console::protocol::sttp::base::main_optt<TOutput>, 
  class TImplements = typename TExtends::implements>
 
 class exported maint: virtual public TImplements, public TExtends {
