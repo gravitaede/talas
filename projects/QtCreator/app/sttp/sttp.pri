@@ -57,21 +57,28 @@ XOS_CONSOLE_MAIN_MAIN \
 sttp_HEADERS += \
 $${TATALAS_SRC}/xos/io/protocol/crypto/output.hpp \
 \
+$${TATALAS_SRC}/xos/protocol/sttp/plaintext/messages.hpp \
 $${TATALAS_SRC}/xos/protocol/sttp/base/output.hpp \
+$${TATALAS_SRC}/xos/protocol/sttp/client/message/default_plain_text.hpp \
+$${TATALAS_SRC}/xos/protocol/sttp/client/output.hpp \
 \
 $${TATALAS_SRC}/xos/app/console/protocol/crypto/main_opt.hpp \
 $${TATALAS_SRC}/xos/app/console/protocol/crypto/main.hpp \
 \
 $${TATALAS_SRC}/xos/app/console/protocol/sttp/base/main_opt.hpp \
 $${TATALAS_SRC}/xos/app/console/protocol/sttp/base/main.hpp \
+$${TATALAS_SRC}/xos/app/console/protocol/sttp/client/main_opt.hpp \
+$${TATALAS_SRC}/xos/app/console/protocol/sttp/client/main.hpp \
 
 # sttp SOURCES
 #
 sttp_SOURCES += \
-$${TATALAS_SRC}/xos/protocol/sttp/base/output.cpp \
+$${TATALAS_SRC}/xos/protocol/sttp/plaintext/messages.cpp \
+$${TATALAS_SRC}/xos/protocol/sttp/client/message/default_plain_text.cpp \
+$${TATALAS_SRC}/xos/protocol/sttp/client/output.cpp \
 \
-$${TATALAS_SRC}/xos/app/console/protocol/sttp/base/main_opt.cpp \
-$${TATALAS_SRC}/xos/app/console/protocol/sttp/base/main.cpp \
+$${TATALAS_SRC}/xos/app/console/protocol/sttp/client/main_opt.cpp \
+$${TATALAS_SRC}/xos/app/console/protocol/sttp/client/main.cpp \
 
 ########################################################################
 # sttp FRAMEWORKS
