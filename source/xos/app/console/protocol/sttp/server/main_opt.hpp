@@ -157,6 +157,66 @@ protected:
         return err;
     }
 
+    /// ...client_hello_run
+    virtual int client_hello_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int before_client_hello_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int after_client_hello_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int all_client_hello_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (!(err = before_client_hello_run(argc, argv, env))) {
+            int err2 = 0;
+            err = client_hello_run(argc, argv, env);
+            if ((err2 = after_client_hello_run(argc, argv, env))) {
+                if (!(err)) err = err2;
+            }
+        }
+        return err;
+    }
+    virtual int set_client_hello_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        run_ = &derives::all_client_hello_run;
+        return err;
+    }
+
+    /// ...server_hello_run
+    virtual int server_hello_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int before_server_hello_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int after_server_hello_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int all_server_hello_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (!(err = before_server_hello_run(argc, argv, env))) {
+            int err2 = 0;
+            err = server_hello_run(argc, argv, env);
+            if ((err2 = after_server_hello_run(argc, argv, env))) {
+                if (!(err)) err = err2;
+            }
+        }
+        return err;
+    }
+    virtual int set_server_hello_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        run_ = &derives::all_server_hello_run;
+        return err;
+    }
+
     /// ...output_server_hello_message_plaintext_run
     virtual int output_server_hello_message_plaintext_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
@@ -243,12 +303,16 @@ protected:
             if (!(err = on_set_hello_message_option(optarg, optind, argc, argv, env))) {
                 if (!(err = on_hello_message_option_set(optarg, optind, argc, argv, env))) {
                     if (!(err = set_output_server_hello_message_plaintext_run(argc, argv, env))) {
+                    } else {
                     }
                 } else {
                 }
             } else {
             }
         } else {
+            if (!(err = set_server_hello_run(argc, argv, env))) {
+            } else {
+            }
         }
         return err;
     }
@@ -282,11 +346,17 @@ protected:
         if ((optarg) && (optarg[0])) {
             if (!(err = on_set_client_hello_option(optarg, optind, argc, argv, env))) {
                 if (!(err = on_client_hello_option_set(optarg, optind, argc, argv, env))) {
+                    if (!(err = set_client_hello_run(argc, argv, env))) {
+                    } else {
+                    }
                 } else {
                 }
             } else {
             }
         } else {
+            if (!(err = set_client_hello_run(argc, argv, env))) {
+            } else {
+            }
         }
         return err;
     }
@@ -320,11 +390,17 @@ protected:
         if ((optarg) && (optarg[0])) {
             if (!(err = on_set_server_hello_option(optarg, optind, argc, argv, env))) {
                 if (!(err = on_server_hello_option_set(optarg, optind, argc, argv, env))) {
+                    if (!(err = set_server_hello_run(argc, argv, env))) {
+                    } else {
+                    }
                 } else {
                 }
             } else {
             }
         } else {
+            if (!(err = set_server_hello_run(argc, argv, env))) {
+            } else {
+            }
         }
         return err;
     }
