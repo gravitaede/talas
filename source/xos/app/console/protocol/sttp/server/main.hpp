@@ -16,24 +16,24 @@
 ///   File: main.hpp
 ///
 /// Author: $author$
-///   Date: 9/21/2022
+///   Date: 9/22/2022
 ///////////////////////////////////////////////////////////////////////
-#ifndef XOS_APP_CONSOLE_PROTOCOL_STTP_CLIENT_MAIN_HPP
-#define XOS_APP_CONSOLE_PROTOCOL_STTP_CLIENT_MAIN_HPP
+#ifndef XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_HPP
+#define XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_HPP
 
-#include "xos/app/console/protocol/sttp/client/main_opt.hpp"
+#include "xos/app/console/protocol/sttp/server/main_opt.hpp"
 
 namespace xos {
 namespace app {
 namespace console {
 namespace protocol {
 namespace sttp {
-namespace client {
+namespace server {
 
 /// class maint
 template 
-<class TOutput = xos::protocol::sttp::client::output,
- class TExtends = xos::app::console::protocol::sttp::client::main_optt<TOutput>, 
+<class TOutput = xos::protocol::sttp::server::output,
+ class TExtends = xos::app::console::protocol::sttp::server::main_optt<TOutput>, 
  class TImplements = typename TExtends::implements>
 
 class exported maint: virtual public TImplements, public TExtends {
@@ -78,19 +78,11 @@ protected:
         return err;
     }
 
-    /// ...generate_client_hello_run
-    virtual int generate_client_hello_run(int argc, char_t** argv, char_t** env) {
+    /// ...output_server_hello_message_plaintext_run
+    virtual int output_server_hello_message_plaintext_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
         output_t& output = this->output(); 
-        output.output_generate_client_hello();
-        return err;
-    }
-
-    /// ...output_client_hello_message_default_plaintext_run
-    virtual int output_client_hello_message_default_plaintext_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        output_t& output = this->output(); 
-        output.output_client_hello_message_default_plaintext();
+        output.output_server_hello_message_plaintext();
         return err;
     }
 
@@ -98,11 +90,11 @@ protected:
 }; /// class maint
 typedef maint<> main;
 
-} /// namespace client
+} /// namespace server
 } /// namespace sttp
 } /// namespace protocol
 } /// namespace console
 } /// namespace app
 } /// namespace xos
 
-#endif /// ndef XOS_APP_CONSOLE_PROTOCOL_STTP_CLIENT_MAIN_HPP
+#endif /// ndef XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_HPP

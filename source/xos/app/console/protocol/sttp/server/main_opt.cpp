@@ -13,29 +13,32 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: output.cpp
+///   File: main_opt.cpp
 ///
 /// Author: $author$
-///   Date: 9/21/2022
+///   Date: 9/22/2022
 ///////////////////////////////////////////////////////////////////////
-#include "xos/protocol/tls/crypto/output.hpp"
+#include "xos/app/console/protocol/sttp/server/main_opt.hpp"
 
-#if !defined(XOS_PROTOCOL_TLS_CRYPTO_OUTPUT_INSTANCE)
-///#define XOS_PROTOCOL_TLS_CRYPTO_OUTPUT_INSTANCE
-#endif /// !defined(XOS_PROTOCOL_TLS_CRYPTO_OUTPUT_INSTANCE)
+#if !defined(XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_OPT_INSTANCE)
+///#define XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_OPT_INSTANCE
+#endif /// !defined(XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_OPT_NSTANCE)
 
 namespace xos {
+namespace app {
+namespace console {
 namespace protocol {
-namespace tls {
-namespace crypto {
+namespace sttp {
+namespace server {
 
-///  Class: outputt
-#if defined(XOS_PROTOCOL_TLS_CRYPTO_OUTPUT_INSTANCE)
-static output the_output;
-#endif /// defined(XOS_PROTOCOL_TLS_CRYPTO_OUTPUT_INSTANCE)
+/// class main_opt
+#if defined(XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_OPT_INSTANCE)
+static main_opt the_main_opt;
+#endif /// defined(XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_OPT_INSTANCE)
 
-
-} /// namespace crypto
-} /// namespace tls
+} /// namespace server
+} /// namespace sttp
 } /// namespace protocol
+} /// namespace console
+} /// namespace app
 } /// namespace xos

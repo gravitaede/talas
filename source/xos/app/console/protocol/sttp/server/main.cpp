@@ -13,29 +13,39 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: output.cpp
+///   File: main.cpp
 ///
 /// Author: $author$
-///   Date: 9/21/2022
+///   Date: 9/22/2022
 ///////////////////////////////////////////////////////////////////////
-#include "xos/protocol/tls/crypto/output.hpp"
+#include "xos/app/console/protocol/sttp/server/main.hpp"
 
-#if !defined(XOS_PROTOCOL_TLS_CRYPTO_OUTPUT_INSTANCE)
-///#define XOS_PROTOCOL_TLS_CRYPTO_OUTPUT_INSTANCE
-#endif /// !defined(XOS_PROTOCOL_TLS_CRYPTO_OUTPUT_INSTANCE)
+#if defined(XOS_CONSOLE_MAIN_MAIN)
+#include "xos/console/main_main.cpp"
+#if !defined(XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_INSTANCE)
+#define XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_INSTANCE
+#endif /// !defined(XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_NSTANCE)
+#endif /// defined(XOS_CONSOLE_MAIN_MAIN)
+
+#if !defined(XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_INSTANCE)
+///#define XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_INSTANCE
+#endif /// !defined(XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_NSTANCE)
 
 namespace xos {
+namespace app {
+namespace console {
 namespace protocol {
-namespace tls {
-namespace crypto {
+namespace sttp {
+namespace server {
 
-///  Class: outputt
-#if defined(XOS_PROTOCOL_TLS_CRYPTO_OUTPUT_INSTANCE)
-static output the_output;
-#endif /// defined(XOS_PROTOCOL_TLS_CRYPTO_OUTPUT_INSTANCE)
+/// class main
+#if defined(XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_INSTANCE)
+static main the_main;
+#endif /// defined(XOS_APP_CONSOLE_PROTOCOL_STTP_SERVER_MAIN_INSTANCE)
 
-
-} /// namespace crypto
-} /// namespace tls
+} /// namespace server
+} /// namespace sttp
 } /// namespace protocol
+} /// namespace console
+} /// namespace app
 } /// namespace xos

@@ -29,6 +29,31 @@ namespace sttp {
 namespace server {
 namespace message {
 
+static const char default_plain_text[] 
+= "" \
+  "libtatalas version = libtatalas-0.0.0-9/18/2022\n" \
+  "\n" \
+  "Usage: sttpd [options]\n" \
+  "\n" \
+  "Options:\n" \
+  " -h --hello-message [string]  hello message\n" \
+  " -c --client-hello [string]  client hello\n" \
+  " -s --server-hello [string]  server hello\n" \
+  " -y --client-key-exchange-only\n" \
+  " -k --server-rsa-key-pair [string]  server rsa key pair\n" \
+  " -r --client-rsa-key-pair [string]  client rsa key pair\n" \
+  " -t --pseudo-random-secret [string]  pseudo random secret\n" \
+  " -e --pseudo-random-seed [string]  pseudo random seed\n" \
+  " -m --master-secret-seed [string]  master secret seed\n" \
+  " -x --key-expansion-seed [string]  key expansion seed\n" \
+  " -f --file-input  input from literal file\n" \
+  " -i --string-input  input from literal string\n" \
+  " -v --verbose  verbose output\n" \
+  " -q --quiet  quiet output\n" \
+  " -l --logging-level { (a)all | (n)none | (f)fatal | (e)error | (w)waring | (i)info | (d)debug | (t)trace }\n" \
+  " -u --usage  Usage options\n" \
+  "";
+
 } /// namespace message
 } /// namespace server
 } /// namespace sttp

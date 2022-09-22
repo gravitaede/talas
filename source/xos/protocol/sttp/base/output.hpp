@@ -21,7 +21,7 @@
 #ifndef XOS_PROTOCOL_STTP_BASE_OUTPUT_HPP
 #define XOS_PROTOCOL_STTP_BASE_OUTPUT_HPP
 
-#include "xos/io/protocol/crypto/output.hpp"
+#include "xos/protocol/tls/crypto/output.hpp"
 
 #include "xos/protocol/tls/protocol/version.hpp"
 
@@ -100,7 +100,7 @@ namespace base {
 
 /// class outputt
 template 
-<class TExtendsOutput = xos::io::protocol::crypto::output, 
+<class TExtendsOutput = xos::protocol::tls::crypto::output, 
  class TExtends = TExtendsOutput, class TImplements = typename TExtends::implements>
 class exported outputt: virtual public TImplements, public TExtends {
 public:
