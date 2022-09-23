@@ -1121,15 +1121,257 @@ public:
     /// ...
     virtual int output_server_hello_messages() {
         int err = 0;
+        const xos::protocol::tls::byte_arrays_t& server_hello_messages = this->server_hello_messages();
+        xos::protocol::tls::byte_array_t*const* arrays = 0; size_t arrays_length = 0;
+        
+        if ((arrays = server_hello_messages.has_elements(arrays_length))) {
+            const xos::protocol::tls::byte_arrays_t& client_hello_messages = this->client_hello_messages();
+            xos::protocol::tls::byte_array_t*const* client_arrays = 0; size_t client_arrays_length = 0;
+            const bool output_hello_message = this->output_hello_message();
+
+            if ((output_hello_message)) {
+                if ((err = output_server_hello_messages(arrays, arrays_length))) {
+                }
+            } else {
+                if ((client_arrays = client_hello_messages.has_elements(client_arrays_length))) {
+                    if ((err = output_client_hello_messages(client_arrays, client_arrays_length))) {
+                    }
+                } else {
+                    if ((err = output_server_hello_messages(arrays, arrays_length))) {
+                    }
+                }
+            }
+        }
         return err;
     }
     virtual int output_server_hello_messages(xos::protocol::tls::byte_array_t*const* arrays, size_t arrays_length) {
         int err = 0;
+        if ((arrays) && (arrays_length)) {
+            const bool verbose = this->verbose_output(), 
+                       output_hello_message = this->output_hello_message();
+
+            for (const xos::protocol::tls::byte_array_t* array = *arrays; arrays_length; --arrays_length, ++arrays, array = *arrays) {
+                if ((array)) {
+                    xos::protocol::tls::plaintext *is_plaintext = 0;
+
+                    if ((verbose)) {
+                        this->outln("byte_array:\\");
+                    }
+                    if ((output_hello_message)) {
+                        this->output_hex(*array);
+                        if ((verbose)) {
+                            this->outln();
+                        }
+                    } else {
+                        if ((verbose)) {
+                            this->output_hex(*array);
+                            this->outln();
+                        }
+                        if ((is_plaintext = array->is_plaintext())) {
+                            xos::protocol::tls::plaintext& plaintext = *is_plaintext;
+                            
+                            if ((err = output_server_plaintext_message(plaintext))) {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return err;
+    }
+    virtual int output_server_plaintext_message(xos::protocol::tls::plaintext& plaintext) {
+        int err = 0;
+        const bool verbose = this->verbose_output();
+
+        if ((plaintext.separate())) {
+            const xos::protocol::tls::plaintext::type_t& content_type = plaintext.type();
+            const byte_t* bytes = 0; size_t length = 0;
+
+            if ((bytes = content_type.has_elements(length))) {
+                const xos::protocol::tls::protocol::version& protocol_version = plaintext.version();
+
+                if ((verbose)) {
+                    this->outln("content_type:\\");
+                    this->output_hex(content_type);
+                    this->outln();
+                }
+                if ((bytes = protocol_version.has_elements(length))) {
+                    const xos::protocol::tls::plaintext::fragment_length_t& fragment_length = plaintext.fragment_length();
+
+                    if ((verbose)) {
+                        this->outln("protocol_version:\\");
+                        this->output_hex(protocol_version);
+                        this->outln();
+                    }
+                    if ((bytes = fragment_length.has_elements(length))) {
+                        const size_t fragment_length_value = fragment_length.value();
+                        const xos::protocol::tls::plaintext::fragment_t& fragment = plaintext.fragment();
+                        
+                        if ((verbose)) {
+                            this->outlln("fragment_length[", unsigned_to_string(fragment_length_value).chars(), "]:\\", null);
+                            this->output_hex(fragment_length);
+                            this->outln();
+                        }
+                        if ((bytes = fragment.has_elements(length))) {
+                            const xos::protocol::tls::plaintext::type_t::which_t& content_type_which = content_type.is();
+                            
+                            if ((verbose)) {
+                                this->outln("fragment:\\");
+                                this->output_hex(fragment);
+                                this->outln();
+                            }
+                            if ((xos::protocol::tls::plaintext::type_t::application_data == content_type_which)) {
+                                err = output_server_application_data_message(bytes, length);
+                            } else {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return err;
+    }
+    virtual int output_server_application_data_message(const byte_t* bytes, size_t length) {
+        int err = 0;
+        const bool verbose = this->verbose_output();
+        
+        if ((bytes) && (length)) {
+            xos::protocol::tls::security::parameters& security_parameters = this->security_parameters();
+            xos::protocol::tls::security::parameters::length_t::value_t record_iv_length = security_parameters.record_iv_length_value();
+            
+            if (record_iv_length < (length)) {
+                xos::protocol::tls::generic::block::cipher generic_block_cipher;
+                size_t count = 0;
+                
+                if ((generic_block_cipher.separate(count, record_iv_length, bytes, length))) {
+                    const xos::protocol::tls::generic::block::cipher::opaque_t& generic_block_cipher_IV = generic_block_cipher.IV();
+                    const xos::protocol::tls::generic::block::cipher::opaque_t& generic_block_cipher_content = generic_block_cipher.content();
+                    const xos::protocol::tls::generic::block::cipher::padding_length_t& generic_block_cipher_padding_length = generic_block_cipher.padding_length();
+                    const xos::protocol::tls::generic::block::cipher::padding_length_t::value_t generic_block_cipher_padding_length_value = generic_block_cipher_padding_length.value();
+                    const xos::protocol::tls::byte_array_t& write_key = this->write_key();
+                    const byte_t* bytes = 0; size_t length = 0;
+
+                    if ((verbose)) {
+                        this->outln("generic_block_cipher_IV:\\");
+                        this->output_hex(generic_block_cipher_IV);
+                        this->outln();
+                    }
+                    if ((verbose)) {
+                        this->outln("generic_block_cipher_content:\\");
+                    }
+                    if ((verbose) || !((bytes = write_key.has_elements(length)) && (0 < length))) {
+                        this->output_hex(generic_block_cipher_content);
+                    }
+                    if ((verbose)) {
+                        this->outln();
+                    }
+                    if ((verbose)) {
+                        this->outlln("generic_block_cipher_padding_length[", unsigned_to_string(generic_block_cipher_padding_length_value).chars(), "]:\\", null);
+                        this->output_hex(generic_block_cipher_padding_length);
+                        this->outln();
+                    }
+                    if ((bytes = generic_block_cipher_content.has_elements(length))) {
+                        err = output_server_plain_text(bytes, length);
+                    }
+                }
+            }
+        }
+        return err;
+    }
+    virtual int output_server_plain_text(const byte_t* bytes, size_t length) {
+        int err = 0;
+        const bool verbose = this->verbose_output();
+        
+        if ((bytes) && (length)) {
+            xos::protocol::tls::byte_array_t& server_decipher_text = this->server_decipher_text();
+            byte_t* out = 0; size_t size = 0;
+            
+            if ((out = server_decipher_text.has_elements(size))) {
+                const xos::protocol::tls::byte_array_t& write_key = this->write_key();
+                const byte_t* write_key_bytes = 0; size_t write_key_length = 0;
+                
+                if ((write_key_bytes = write_key.has_elements(write_key_length))) {
+                    const xos::protocol::tls::byte_array_t& write_IV = this->write_IV();
+                    const byte_t* write_IV_bytes = 0; size_t write_IV_length = 0;
+                    
+                    if ((write_IV_bytes = write_IV.has_elements(write_IV_length))) {
+                        xos::crypto::cipher::implemented::aes aes
+                        (write_key_bytes, write_key_length, write_IV_bytes, write_IV_length);
+                        size_t plain_length = 0;
+
+                        if (0 < (plain_length = aes.decrypt(out, size, bytes, length))) {
+                            const char_t* chars = 0;
+
+                            if ((verbose)) {
+                                this->outln("server_decipher_text:\\");
+                                this->output_x(out, plain_length);
+                                this->outln();
+                            }
+                            if ((chars = ((const char_t*)out))) {
+                                literal_string_t& server_plain_text = this->server_plain_text();
+                                
+                                server_plain_text.assign(chars);
+                                if ((chars = server_plain_text.has_chars(length))) {
+                                    if ((verbose)) {
+                                        this->out("server_plain_text:\"");
+                                    }
+                                    this->out(chars, length);
+                                    if ((verbose)) {
+                                        this->outln("\"");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return err;
     }
     /// ...
     /// ...output_server...
     /// 
+
+    /// ...option...
+    virtual int on_set_client_hello_message_option(const char_t* optarg) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            literal_string_t& literal_string = this->literal_string();
+            byte_array_t& literal = this->literal();
+            const byte_t* bytes = 0; size_t length = 0;
+
+            literal_string.assign(optarg);
+            this->on_set_text_literal(literal, literal_string);
+            if ((bytes = literal.has_elements(length))) {
+                literal_string_t& client_plain_text = this->client_plain_text();
+
+                client_plain_text.assign(((const char_t*)bytes), length);
+            }
+        }
+        return err;
+    }
+    virtual int on_set_client_hello_messages_option(const char_t* optarg) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            literal_string_t& client_hello_messages_string = this->client_hello_messages_string();
+            plaintext_messages_t& client_hello_messages = this->client_hello_messages();
+
+            client_hello_messages_string.assign(optarg);
+            err = this->on_set_hex_literal_arrays(client_hello_messages, client_hello_messages_string);
+        }
+        return err;
+    }
+    virtual int on_set_server_hello_messages_option(const char_t* optarg) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            literal_string_t& server_hello_messages_string = this->server_hello_messages_string();
+            plaintext_messages_t& server_hello_messages = this->server_hello_messages();
+
+            server_hello_messages_string.assign(optarg);
+            err = this->on_set_hex_literal_arrays(server_hello_messages, server_hello_messages_string);
+        }
+        return err;
+    }
 
     /// default...
     virtual const char_t* default_plain_text_chars(size_t& length) const {

@@ -86,11 +86,71 @@ protected:
         return err;
     }
 
+    /// ...output_client_hello_message_run
+    virtual int output_client_hello_message_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        output_t& output = this->output(); 
+        output.output_client_hello_messages();
+        return err;
+    }
+
+    /// ...output_server_hello_message_run
+    virtual int output_server_hello_message_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        output_t& output = this->output(); 
+        output.output_server_hello_messages();
+        return err;
+    }
+
+    /// ...output_client_hello_message_plaintext_run
+    virtual int output_client_hello_message_plaintext_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        output_t& output = this->output(); 
+        output.output_client_hello_message_plaintext();
+        return err;
+    }
+
     /// ...output_client_hello_message_default_plaintext_run
     virtual int output_client_hello_message_default_plaintext_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
         output_t& output = this->output(); 
         output.output_client_hello_message_default_plaintext();
+        return err;
+    }
+
+    /// ...client_hello_option...
+    virtual int on_set_client_hello_option
+    (const char_t* optarg, int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            output_t& output = this->output(); 
+            output.on_set_client_hello_message_option(optarg);
+        } else {
+        }
+        return err;
+    }
+
+    /// ...client_hello_message_option...
+    virtual int on_set_client_hello_message_option
+    (const char_t* optarg, int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            output_t& output = this->output(); 
+            output.on_set_client_hello_messages_option(optarg);
+        } else {
+        }
+        return err;
+    }
+
+    /// ...server_hello_message_option...
+    virtual int on_set_server_hello_message_option
+    (const char_t* optarg, int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            output_t& output = this->output(); 
+            output.on_set_server_hello_messages_option(optarg);
+        } else {
+        }
         return err;
     }
 
