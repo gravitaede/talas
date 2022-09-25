@@ -16,11 +16,11 @@
 #   File: tatalas.pri
 #
 # Author: $author$
-#   Date: 9/18/2022
+#   Date: 9/18/2022, 9/24/2022
 #
 # os specific QtCreator project .pri file for framework tatalas
 ########################################################################
-# Depends: bn;mp;rostra;nadir;fila;crono;cifra
+# Depends: bn;mp;rostra;nadir;fila;crono;cifra;rete;stara
 
 UNAME = $$system(uname)
 
@@ -265,6 +265,53 @@ mp_LIBS += \
 
 
 ########################################################################
+# rete
+RETE_THIRDPARTY_PKG_MAKE_BLD = $${RETE_THIRDPARTY_PKG}/build/$${TATALAS_BUILD}/$${BUILD_CONFIG}
+RETE_THIRDPARTY_PRJ_MAKE_BLD = $${OTHER_BLD}/$${RETE_THIRDPARTY_PRJ}/build/$${TATALAS_BUILD}/$${BUILD_CONFIG}
+RETE_THIRDPARTY_PKG_BLD = $${RETE_THIRDPARTY_PKG}/build/$${TATALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+RETE_THIRDPARTY_PRJ_BLD = $${OTHER_BLD}/$${RETE_THIRDPARTY_PRJ}/build/$${TATALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+RETE_PKG_BLD = $${OTHER_BLD}/$${RETE_PKG}/build/$${TATALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+RETE_PRJ_BLD = $${OTHER_BLD}/$${RETE_PRJ}/build/$${TATALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+#RETE_LIB = $${RETE_THIRDPARTY_PKG_MAKE_BLD}/lib
+#RETE_LIB = $${RETE_THIRDPARTY_PRJ_MAKE_BLD}/lib
+#RETE_LIB = $${RETE_THIRDPARTY_PKG_BLD}/lib
+#RETE_LIB = $${RETE_THIRDPARTY_PRJ_BLD}/lib
+RETE_LIB = $${RETE_PKG_BLD}/lib
+#RETE_LIB = $${RETE_PRJ_BLD}/lib
+#RETE_LIB = $${TATALAS_LIB}
+RETE_LIB_NAME = $${RETE_NAME}
+
+# rete LIBS
+#
+rete_LIBS += \
+-L$${RETE_LIB}/lib$${RETE_LIB_NAME} \
+-l$${RETE_LIB_NAME} \
+
+
+########################################################################
+# stara
+STARA_THIRDPARTY_PKG_MAKE_BLD = $${STARA_THIRDPARTY_PKG}/build/$${TATALAS_BUILD}/$${BUILD_CONFIG}
+STARA_THIRDPARTY_PRJ_MAKE_BLD = $${OTHER_BLD}/$${STARA_THIRDPARTY_PRJ}/build/$${TATALAS_BUILD}/$${BUILD_CONFIG}
+STARA_THIRDPARTY_PKG_BLD = $${STARA_THIRDPARTY_PKG}/build/$${TATALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+STARA_THIRDPARTY_PRJ_BLD = $${OTHER_BLD}/$${STARA_THIRDPARTY_PRJ}/build/$${TATALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+STARA_PKG_BLD = $${OTHER_BLD}/$${STARA_PKG}/build/$${TATALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+STARA_PRJ_BLD = $${OTHER_BLD}/$${STARA_PRJ}/build/$${TATALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+#STARA_LIB = $${STARA_THIRDPARTY_PKG_MAKE_BLD}/lib
+#STARA_LIB = $${STARA_THIRDPARTY_PRJ_MAKE_BLD}/lib
+#STARA_LIB = $${STARA_THIRDPARTY_PKG_BLD}/lib
+#STARA_LIB = $${STARA_THIRDPARTY_PRJ_BLD}/lib
+STARA_LIB = $${STARA_PKG_BLD}/lib
+#STARA_LIB = $${STARA_PRJ_BLD}/lib
+#STARA_LIB = $${TATALAS_LIB}
+STARA_LIB_NAME = $${STARA_NAME}
+
+# stara LIBS
+#
+stara_LIBS += \
+-L$${STARA_LIB}/lib$${STARA_LIB_NAME} \
+-l$${STARA_LIB_NAME} \
+
+########################################################################
 # tatalas
 
 # tatalas INCLUDEPATH
@@ -294,6 +341,8 @@ tatalas_os_LIBS += \
 # tatalas base LIBS
 #
 tatalas_base_LIBS += \
+$${stara_LIBS} \
+$${rete_LIBS} \
 $${cifra_LIBS} \
 $${crono_LIBS} \
 $${fila_LIBS} \
