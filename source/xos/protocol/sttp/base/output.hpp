@@ -270,6 +270,17 @@ public:
         return count;
     }
     /// ...output...key_pair
+    ssize_t (derives::*output_server_key_pair_)();
+    virtual ssize_t output_server_key_pair() {
+        ssize_t count = 0;
+        if (output_server_key_pair_) {
+            count = (this->*output_server_key_pair_)();
+        } else {
+            count = output_server_rsa_key_pair();
+        }
+        return count;
+    }
+    /// ...output...key_pair
     ssize_t (derives::*output_key_pair_)();
     virtual ssize_t output_key_pair() {
         ssize_t count = 0;
