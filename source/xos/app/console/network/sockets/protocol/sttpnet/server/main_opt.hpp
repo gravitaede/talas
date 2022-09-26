@@ -282,6 +282,10 @@ protected:
         run_ = &derives::all_output_server_hello_message_run;
         return err;
     }
+    virtual int on_set_output_server_hello_message_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
 
     /// ...server_hello_message_option...
     virtual int on_set_server_hello_message_option
@@ -308,6 +312,8 @@ protected:
             if (!(err = on_set_server_hello_message_option(optarg, optind, argc, argv, env))) {
                 if (!(err = on_server_hello_message_option_set(optarg, optind, argc, argv, env))) {
                     if (!(err = set_output_server_hello_message_run(argc, argv, env))) {
+                        if (!(err = on_set_output_server_hello_message_run(argc, argv, env))) {
+                        }
                     }
                 } else {
                 }
@@ -315,6 +321,8 @@ protected:
             }
         } else {
             if (!(err = set_output_server_hello_message_run(argc, argv, env))) {
+                if (!(err = on_set_output_server_hello_message_run(argc, argv, env))) {
+                }
             }
         }
         return err;

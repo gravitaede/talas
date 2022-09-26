@@ -107,6 +107,13 @@ public:
         }
         return err;
     }
+    virtual xos::protocol::tls::byte_array_t*const* client_hello_messages_has_elements(size_t& arrays_length) {
+        const xos::protocol::tls::byte_arrays_t& client_hello_messages = this->client_hello_messages();
+        xos::protocol::tls::byte_array_t*const* arrays = 0;
+        if ((arrays = client_hello_messages.has_elements(arrays_length))) {
+        }
+        return arrays;
+    }
     virtual int output_client_hello_messages(xos::protocol::tls::byte_array_t*const* arrays, size_t arrays_length) {
         int err = 0;
 
@@ -847,6 +854,14 @@ public:
         int err = 0;
         if ((optarg) && (optarg[0])) {
             client_hello_messages_string_.assign(optarg);
+            err = this->on_set_hex_literal_arrays(client_hello_messages_, client_hello_messages_string_);
+        }
+        return err;
+    }
+    virtual int on_set_client_hello_option(const char_t* optarg, size_t length) {
+        int err = 0;
+        if ((optarg) && (length)) {
+            client_hello_messages_string_.assign(optarg, length);
             err = this->on_set_hex_literal_arrays(client_hello_messages_, client_hello_messages_string_);
         }
         return err;
