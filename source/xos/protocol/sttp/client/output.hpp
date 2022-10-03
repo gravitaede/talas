@@ -533,6 +533,13 @@ public:
         }
         return err;
     }
+    virtual xos::protocol::tls::byte_array_t*const* client_hello_messages_has_elements(size_t& arrays_length) {
+        const xos::protocol::tls::byte_arrays_t& client_hello_messages = this->client_hello_messages();
+        xos::protocol::tls::byte_array_t*const* arrays = 0;
+        if ((arrays = client_hello_messages.has_elements(arrays_length))) {
+        }
+        return arrays;
+    }
     virtual int output_client_hello_messages(xos::protocol::tls::byte_array_t*const* arrays, size_t arrays_length) {
         int err = 0;
         
@@ -1144,6 +1151,13 @@ public:
         }
         return err;
     }
+    virtual xos::protocol::tls::byte_array_t*const* server_hello_messages_has_elements(size_t& arrays_length) {
+        const xos::protocol::tls::byte_arrays_t& server_hello_messages = this->server_hello_messages();
+        xos::protocol::tls::byte_array_t*const* arrays = 0;
+        if ((arrays = server_hello_messages.has_elements(arrays_length))) {
+        }
+        return arrays;
+    }
     virtual int output_server_hello_messages(xos::protocol::tls::byte_array_t*const* arrays, size_t arrays_length) {
         int err = 0;
         if ((arrays) && (arrays_length)) {
@@ -1361,6 +1375,17 @@ public:
         }
         return err;
     }
+    virtual int on_set_client_hello_messages_option(const char_t* optarg, size_t length) {
+        int err = 0;
+        if ((optarg) && (length)) {
+            literal_string_t& client_hello_messages_string = this->client_hello_messages_string();
+            plaintext_messages_t& client_hello_messages = this->client_hello_messages();
+
+            client_hello_messages_string.assign(optarg, length);
+            err = this->on_set_hex_literal_arrays(client_hello_messages, client_hello_messages_string);
+        }
+        return err;
+    }
     virtual int on_set_server_hello_messages_option(const char_t* optarg) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
@@ -1368,6 +1393,17 @@ public:
             plaintext_messages_t& server_hello_messages = this->server_hello_messages();
 
             server_hello_messages_string.assign(optarg);
+            err = this->on_set_hex_literal_arrays(server_hello_messages, server_hello_messages_string);
+        }
+        return err;
+    }
+    virtual int on_set_server_hello_messages_option(const char_t* optarg, size_t length) {
+        int err = 0;
+        if ((optarg) && (length)) {
+            literal_string_t& server_hello_messages_string = this->server_hello_messages_string();
+            plaintext_messages_t& server_hello_messages = this->server_hello_messages();
+
+            server_hello_messages_string.assign(optarg, length);
             err = this->on_set_hex_literal_arrays(server_hello_messages, server_hello_messages_string);
         }
         return err;

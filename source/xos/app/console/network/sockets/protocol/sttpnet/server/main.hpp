@@ -222,9 +222,9 @@ protected:
         if (!(err = output.output_client_hello_messages())) {
             const char_t* chars = 0; size_t length = 0;
             
-            content_string.append(endof_content_string);
             if ((chars = content_string.has_chars(length))) {
                 response.assign(chars, length);
+                response.append(endof_content_string);
             }
         }
         output.set_verbose_output(old_verbose_output);
@@ -253,9 +253,9 @@ protected:
         if (!(err = output.output_server_hello_messages())) {
             const char_t* chars = 0; size_t length = 0;
             
-            content_string.append(endof_content_string);
             if ((chars = content_string.has_chars(length))) {
                 response.assign(chars, length);
+                response.append(endof_content_string);
             }
         }
         output.set_verbose_output(old_verbose_output);

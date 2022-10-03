@@ -369,11 +369,19 @@ protected:
         if ((optarg) && (optarg[0])) {
             if (!(err = on_set_client_hello_option(optarg, optind, argc, argv, env))) {
                 if (!(err = on_client_hello_option_set(optarg, optind, argc, argv, env))) {
+                    if (!(err = set_output_client_hello_run(argc, argv, env))) {
+                        if (!(err = on_set_output_client_hello_run(argc, argv, env))) {
+                        }
+                    }
                 } else {
                 }
             } else {
             }
         } else {
+            if (!(err = set_output_client_hello_run(argc, argv, env))) {
+                if (!(err = on_set_output_client_hello_run(argc, argv, env))) {
+                }
+            }
         }
         return err;
     }
@@ -407,11 +415,19 @@ protected:
         if ((optarg) && (optarg[0])) {
             if (!(err = on_set_server_hello_option(optarg, optind, argc, argv, env))) {
                 if (!(err = on_server_hello_option_set(optarg, optind, argc, argv, env))) {
+                    if (!(err = set_output_server_hello_run(argc, argv, env))) {
+                        if (!(err = on_set_output_server_hello_run(argc, argv, env))) {
+                        }
+                    }
                 } else {
                 }
             } else {
             }
         } else {
+            if (!(err = set_output_server_hello_run(argc, argv, env))) {
+                if (!(err = on_set_output_server_hello_run(argc, argv, env))) {
+                }
+            }
         }
         return err;
     }
